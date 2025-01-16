@@ -28,7 +28,7 @@ export class PipeAndOperatorsComponent implements OnInit {
 
   public fillRegularArray(): void {
     this._dataService.getDataAndManipulate().subscribe((res) => {
-      console.log('home component result from getDataAndManipulate():', res);
+      // console.log('home component result from getDataAndManipulate():', res);
       this.resultArr.push(res);
     });
   }

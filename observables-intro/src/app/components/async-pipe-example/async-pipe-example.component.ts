@@ -18,5 +18,10 @@ export class AsyncPipeExampleComponent implements OnInit {
   ngOnInit(): void {
     // No subscription here as the async pipe in the html will subscribe.
     this.dataArr$ = this._dataService.getAllData();
+
+    // this._dataService.webCall();
+    this._dataService.webCall().subscribe(res => {
+      console.log('res', res);
+    });
   }
 }

@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { filter, from, map, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
+  private _http = inject(HttpClient);
+
   public dataStream$: Observable<number> = from([10, 11, 12, 13, 14, 15, 16]);
 
   public data$: Observable<number[]> = of([10, 11, 12, 14, 15, 16]);
@@ -15,7 +18,12 @@ export class DataService {
     return this.dataStream$;
   }
 
-  public getAllData(): Observable<number[]> {
+  public webCall(): Observable<any> {
+    console.log('IN WEB CALL');
+    return this._http.get<any>(`https://randomuser.me/api`);
+  }
+
+  public getAllData(): Observable<number[]> {    
     return this.data$;
   }
 
@@ -23,14 +31,7 @@ export class DataService {
     return this.dataStream$.pipe(
       tap((val) => {
         console.log('tap initial:', val);
-        /**
-         * Uncomment the below to see how even if we return from tap() the return
-         * value from tap() is ignored because tap() is meant to *only* perform side-effects,
-         * and thus anything returned from it is ignored.
-         */
-        // const retVal = val * 100;
-        // console.log('tap retVal:', retVal);
-        // return retVal;
+        
       }),
       map((val) => {
         console.log('---------------------------------');
