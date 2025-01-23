@@ -13,7 +13,12 @@ export class ApiService {
   );
 
   public apiData$: Observable<any> = this._apiDataSubject.asObservable();
+
   constructor() {}
+
+  public get apiData(): any {
+    return this._apiDataSubject.value;
+  }
 
   public webCall(): Observable<any> {
     // console.log('IN WEB CALL');
