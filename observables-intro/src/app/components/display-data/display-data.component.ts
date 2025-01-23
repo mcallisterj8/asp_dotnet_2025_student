@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 export class DisplayDataComponent implements OnInit {
   private _apiService = inject(ApiService);
   public apiDataFromSubject$: Observable<any> = this._apiService.apiData$;
+  
   ngOnInit(): void {
     if (!this._apiService.apiData) {
       this._apiService.webCallFillSubject().subscribe();

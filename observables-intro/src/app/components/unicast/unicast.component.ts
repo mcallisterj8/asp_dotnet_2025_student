@@ -32,5 +32,7 @@ export class UnicastComponent implements OnInit {
     unicastObservable$.subscribe((value) =>
       console.log(`Observable Subscriber 2: ${value}`)
     );
+
+    
   }
 }
