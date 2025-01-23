@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -17,12 +17,10 @@ export class PipeAndOperatorsComponent implements OnInit {
 
   ngOnInit(): void {
     this.fillRegularArray();
-    // this.fillBehaviorSubject();
   }
 
   public fillRegularArray(): void {
     this._dataService.getDataAndManipulate().subscribe((res) => {
-      // console.log('home component result from getDataAndManipulate():', res);
       this.resultArr.push(res);
     });
   }
