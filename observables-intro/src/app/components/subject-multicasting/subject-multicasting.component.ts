@@ -11,14 +11,15 @@ import { Subject } from 'rxjs';
 export class SubjectMulticastingComponent implements OnInit {
   ngOnInit(): void {
     const subject = new Subject<number>();
-
     // Simulate an asynchronous operation that emits a value
     setTimeout(() => {
-      const randomValue = Math.random(); // Generate a random value
-      subject.next(randomValue); // Emit the random value to all subscribers
-      subject.complete(); // Signal completion
+      // Generate a random value
+      const randomValue = Math.random();
+      // Emit the random value to all subscribers
+      subject.next(randomValue);
+      // Signal completion
+      subject.complete();
     }, 1000);
-
     // Subscribing to the Subject twice
     subject.subscribe((value) => console.log(`Subject Subscriber 1: ${value}`));
     subject.subscribe((value) => console.log(`Subject Subscriber 2: ${value}`));

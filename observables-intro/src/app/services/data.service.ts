@@ -1,16 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { filter, from, map, Observable, of, tap } from 'rxjs';
+import { filter, from, interval, map, Observable, of, take, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  private _http = inject(HttpClient);
+  private _data: number[] = [10, 11, 12, 13, 14, 15, 16];
 
-  public dataStream$: Observable<number> = from([10, 11, 12, 13, 14, 15, 16]);
+  // Outputting data as a stream, one element at a time,
+  // rather than the entire array at once.
+  public dataStream$: Observable<number> = interval(500).pipe(
+    map((index) => this._data[index]),
+    take(7)
+  );
 
-  public data$: Observable<number[]> = of([10, 11, 12, 14, 15, 16]);
+  public data$: Observable<number[]> = of(this._data);
 
   constructor() {}
 
@@ -18,12 +23,7 @@ export class DataService {
     return this.dataStream$;
   }
 
-  public webCall(): Observable<any> {
-    console.log('IN WEB CALL');
-    return this._http.get<any>(`https://randomuser.me/api`);
-  }
-
-  public getAllData(): Observable<number[]> {    
+  public getAllData(): Observable<number[]> {
     return this.data$;
   }
 
@@ -31,13 +31,12 @@ export class DataService {
     return this.dataStream$.pipe(
       tap((val) => {
         console.log('tap initial:', val);
-        
       }),
       map((val) => {
         console.log('---------------------------------');
         console.log('map initial:', val);
         const retVal = val + 2;
-        console.log('map retVal:', retVal);
+        console.log('map return value:', retVal);
 
         return retVal;
       }),
