@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable, tap } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-request-data',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatProgressSpinnerModule],
   templateUrl: './request-data.component.html',
   styleUrl: './request-data.component.css',
 })
@@ -15,18 +16,26 @@ export class RequestDataComponent implements OnInit {
   public apiDataFromSubject$: Observable<any> = this._apiService.apiData$;
 
   public apiDataFromComp$: Observable<any> = EMPTY;
+  public apiDataFromSubjectLoading: boolean = false;
+  public apiDataFromCompLoading: boolean = false;
 
   ngOnInit(): void {}
 
   getApiData(): void {
     // this._dataService.webCall();
-    this.apiDataFromComp$ = this._apiService.webCall();
+    this.apiDataFromCompLoading = true;
+    this.apiDataFromComp$ = this._apiService.webCall().pipe(
+      tap(() => {
+        this.apiDataFromCompLoading = false;
+      })
+    );
   }
 
   getApiDataAndDisplayJson(): void {
     // this._dataService.webCall();
+    this.apiDataFromSubjectLoading = true;
     this._apiService.webCallFillSubject().subscribe((res) => {
-      console.log('res', res);
+      this.apiDataFromSubjectLoading = false;
     });
   }
 
