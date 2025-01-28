@@ -10,7 +10,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class SubjectMulticastingComponent implements OnInit {
   ngOnInit(): void {
-    const subject = new Subject<number>();
+    const subject = new Subject<number>();    
     
     
 
@@ -30,12 +30,12 @@ export class SubjectMulticastingComponent implements OnInit {
     // subject.next(8);
     
 
-    const behaviorSubject: BehaviorSubject<number> = new BehaviorSubject(0);
-    behaviorSubject.subscribe((value) => console.log(`behaviorSubject Subscriber 1: ${value}`));
-    behaviorSubject.next(8);
+    // const behaviorSubject: BehaviorSubject<number> = new BehaviorSubject(0);
+    // behaviorSubject.subscribe((value) => console.log(`behaviorSubject Subscriber 1: ${value}`));
+    // behaviorSubject.next(8);
 
-    behaviorSubject.next(9);
-    behaviorSubject.subscribe((value) => console.log(`behaviorSubject Subscriber 2: ${value}`));
+    // behaviorSubject.next(9);
+    // behaviorSubject.subscribe((value) => console.log(`behaviorSubject Subscriber 2: ${value}`));
 
   }
 }
