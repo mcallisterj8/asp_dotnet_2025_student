@@ -17,9 +17,11 @@ export class ProductService {
 
   constructor() { }
 
-  public getAllProducts(): Observable<Product[]> {
+  public getAllProducts(): Observable<Product[]> {    
+
     return this._http.get<Product[]>(`/api/products`).pipe(
-      tap((productList) => {
+      tap((productList) => {      
+        console.log(productList);
         // Place product list inside of BehaviorSubject
         this._productListSubject.next(productList);
       })

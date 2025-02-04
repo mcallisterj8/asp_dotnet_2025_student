@@ -19,6 +19,10 @@ builder.Services.AddScoped<SeedingService>();
 
 var app = builder.Build();
 
+using var scope = app.Services.CreateScope();
+var seedingService = scope.ServiceProvider.GetRequiredService<SeedingService>();
+await seedingService.Seed();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
