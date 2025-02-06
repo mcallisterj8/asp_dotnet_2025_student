@@ -45,6 +45,14 @@ export class ProductService {
     );
   }
 
+  public getProductById(productId: number): Observable<Product> {
+    return this._http.get<Product>(`/api/products/${productId}`).pipe(
+      tap((product) => {
+        this._productSubject.next(product);
+      })
+    );
+  }
+
   public select(product: Product | null): void {
     this._productSubject.next(product);
   }
