@@ -45,6 +45,16 @@ namespace Server.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("test")]
+        public async Task<ActionResult> Test() {
+            /**
+                Simple endpoint that can be used to see if your 
+                authenitcation system is working.
+            */
+            return Ok(new { message = "hello" });
+        }
+
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login([FromBody] EmailLoginDetails details) {
             // Retrieve user
