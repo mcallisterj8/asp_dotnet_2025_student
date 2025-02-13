@@ -3,12 +3,13 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { SuccessSnackBarComponent } from '../success-snack-bar/success-snack-bar.component';
 
 @Component({
   selector: 'app-register',
   standalone: false,
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent {
   @ViewChild('registerNgForm') registerNgForm!: NgForm;
@@ -22,8 +23,8 @@ export class RegisterComponent {
 
   constructor() {
     this.registerForm = this._formBuilder.group({
-      email: ['', Validators.required,  Validators.email],
-      password: ['',  Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
     });
   }
 
@@ -31,9 +32,19 @@ export class RegisterComponent {
     return this.registerForm.controls;
   }
 
+  private openSnackBar(): void {
+    this._snackBar.openFromComponent(SuccessSnackBarComponent, {
+      duration: 3000,
+      verticalPosition: 'top',
+      data: {
+        message: 'Registration successful!',
+      },
+    });
+  }
+
   public register(): void {
     // Return if the form is invalid
-    if(this.registerForm.invalid) {
+    if (this.registerForm.invalid) {
       return;
     }
 
@@ -42,6 +53,7 @@ export class RegisterComponent {
 
     this._authService.register(this.registerForm.value).subscribe({
       next: (resp) => {
+        this.openSnackBar();
         this._router.navigate(['/auth/login']);
       },
       error: (err) => {
@@ -49,10 +61,8 @@ export class RegisterComponent {
 
         this.registerNgForm.resetForm();
 
-        this.errorMessages = err.err.errors;
-      }
-    })
-
+        this.errorMessages = err.error.errors;
+      },
+    });
   }
-
 }
