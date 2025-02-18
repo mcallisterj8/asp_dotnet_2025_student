@@ -13,6 +13,7 @@ export class NavComponent implements OnInit {
   private _authService = inject(AuthService);
   private _router = inject(Router);
   public isLoggedIn: boolean = false;
+  
   ngOnInit(): void {
     this._authService.user$.subscribe((res) => {
       this.isLoggedIn = !!res;
