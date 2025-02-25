@@ -11,7 +11,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((err) => {
       if (401 == err.status) {
-        authService.logout().subscribe();
+        authService.clearFrontendCredentials();
         router.navigate(['/auth/login']);
       }
       return throwError(() => err);
