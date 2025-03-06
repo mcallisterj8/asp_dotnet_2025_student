@@ -11,6 +11,37 @@ public class PlantResponse {
 
 }
 
+public class PlantListResponse {
+    [JsonPropertyName("data")]
+    public List<Plant> Data { get; set; } = new List<Plant>();
+    
+    [JsonPropertyName("links")]
+    public Links? Links { get; set; }
+
+    [JsonPropertyName("meta")]
+    public PlantListMeta? Meta { get; set; }
+
+}
+
+public class Links {
+    [JsonPropertyName("self")]
+    public string? Self { get; set; }
+
+    [JsonPropertyName("first")]
+    public string? First { get; set; }
+
+    [JsonPropertyName("next")]
+    public string? Next { get; set; }
+
+    [JsonPropertyName("last")]
+    public string? Last { get; set; }
+}
+
+public class PlantListMeta {
+    [JsonPropertyName("total")]
+    public int Total { get; set; }
+}
+
 public class SinglePlantMeta {
     [JsonPropertyName("last_modified")]
     public DateTime? LastModified { get; set; }

@@ -14,5 +14,11 @@ public class TrefleService {
 
         return plantResponse.Data;
     }
+    
+    public async Task<ICollection<Plant>?> GetPlants() {
+        PlantListResponse? plantListResponse = await _trefleApiService.GetPlants();
+
+        return plantListResponse.Data;
+    }
 
 }

@@ -27,9 +27,13 @@ namespace TrefleApp.Server.Controllers {
 
         [HttpGet("plants")]
         public async Task<ActionResult<ICollection<Plant>>> GetPlants() {
-            
+            ICollection<Plant>? plants = await _trefleService.GetPlants();
 
-            return Ok();
+            if(null == plants) {
+                return BadRequest("Expected list of plants but got null instead.");
+            }
+
+            return Ok(plants);
         }
 
     }

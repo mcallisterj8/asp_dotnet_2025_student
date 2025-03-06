@@ -29,4 +29,13 @@ public class TrefleApiService {
     }
 
 
+    public async Task<PlantListResponse?> GetPlants() {
+        var request = new RestRequest($"/plants?token={_apiKey}")
+            .AddHeader("accept", "application/json");
+
+        var response = await _restClient.GetAsync(request);
+
+        return JsonSerializer.Deserialize<PlantListResponse>(response.Content);  
+    }
+
 }
