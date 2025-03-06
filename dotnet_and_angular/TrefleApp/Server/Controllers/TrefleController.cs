@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TrefleApp.Server.Services;
 
 namespace TrefleApp.Server.Controllers {
+    // localhost/api/trefle
     [Route("api/[controller]")]
     [ApiController]
     public class TrefleController : ControllerBase {
@@ -14,10 +15,9 @@ namespace TrefleApp.Server.Controllers {
 
         [HttpGet("plants/{plantId}")]
         public async Task<ActionResult> GetPlantById(int plantId) {
-            await _trefleApiService.GetPlantById(plantId);
-            
+            var response = await _trefleApiService.GetPlantById(plantId);            
 
-            return Ok();
+            return Ok(response);
         }
 
     }

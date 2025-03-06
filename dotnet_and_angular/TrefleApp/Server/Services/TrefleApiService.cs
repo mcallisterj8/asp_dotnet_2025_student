@@ -1,5 +1,6 @@
 using System.Text.Json;
 using RestSharp;
+using TrefleApp.Server.Models.Trefle.Responses;
 
 namespace TrefleApp.Server.Services;
 
@@ -18,13 +19,13 @@ public class TrefleApiService {
         _restClient = new RestClient(_baseUrl);
     }
 
-    public async Task GetPlantById(int plantId) {
+    public async Task<PlantResponse?> GetPlantById(int plantId) {
         var request = new RestRequest($"/plants/{plantId}?token={_apiKey}")
             .AddHeader("accept", "application/json");
 
         var response = await _restClient.GetAsync(request);
 
-        Console.WriteLine(response.Content);        
+        return JsonSerializer.Deserialize<PlantResponse>(response.Content);  
     }
 
 
