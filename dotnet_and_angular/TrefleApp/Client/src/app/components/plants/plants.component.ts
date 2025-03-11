@@ -2,11 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { TrefleService } from '../../services/trefle.service';
 import { Observable } from 'rxjs';
 import { Plant } from '../../models/plant';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-plants',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './plants.component.html',
   styleUrl: './plants.component.css',
 })
