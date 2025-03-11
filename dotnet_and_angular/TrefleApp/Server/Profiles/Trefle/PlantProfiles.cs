@@ -4,6 +4,6 @@ using TrefleApp.Server.Models.Trefle.Dtos;
 
 public class PlantProfile : Profile {
     public PlantProfile() {
-        CreateMap<PlantDto, Plant>().ReverseMap();
+        CreateMap<PlantDto, Plant>().ReverseMap();        
     }
 }
